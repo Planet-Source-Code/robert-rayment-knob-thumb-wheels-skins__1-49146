@@ -1,0 +1,76 @@
+ Skin Demo  by Robert Rayment  Oct 2003
+ 
+ RRWheels
+ 
+ This is a quicky program to develop image strips for 
+ rotating knobs and thumb wheels. The number of repeated
+ images (NRI(int)) can be set. 
+ 
+ For knobs, the size of the central part of the image to
+ rotate (zRAD (dec)) can be set as well as the incremental angle
+ (zANG(dec)) of rotation. 
+ 
+ For thumb wheels these last two would be set to zero. The image
+ strip can be tested and saved for use in other progs. 
+ 
+ There are a couple of example bmps.
+
+ MakeArrays.
+ 
+ Load any picture, press make arrays then save arrays.
+ Arrays are 2D True Color, compressed using zlib.dll, where
+ the width & height are stored at the start of the compressed
+ array as 2 long integers. Stored as *.arz
+ 
+ 32bpp mask can also be saved if wanted, where black is
+ made white (ie 255,255,255,255 = -1) and non-black made
+ black. So blitting would use vbSrcAnd & vbScrInvert.  
+ Masks are used for the sliders, scales & switches in the demo.
+ Stored as *.msz and also have the width and height stored at
+ the beginning of the compressed file.
+ 
+ The width and height enable the original uncompressed file size
+ to be calculated ie = W x H x 4.  Also W & H are needed for
+ converting to 2D arrays for blitting to the form & poicture boxes.
+ 
+ There are a couple of example bmps used.
+
+ Demo Skins
+ 
+ The demo only works for a starting image size of 256 x 256.
+ There are 2 examples Blue & Pink. The other arrays are for the
+ buttons.
+ 
+ Use is made of the SendMessage api to resize with a resizing
+ rectangle.  NB this rectangle does not seem to show up in
+ WinXP as it does in Win98 though the resizing is OK.
+ 
+ Once the new size is set StretchDIBits is used to stretch
+ the arrays to the images' size.  Controls & fonts are resized
+ using a Controls Collection.
+
+ The cursor changes from the standard pointer at active points
+ around the screen.  Note that the knob wheel can also be rotated
+ by moving the cursor in a circular motion over the wheel. The
+ bottom right striated rectangle can be used to resize the form
+ to any size >= 256 x 256.
+ 
+ The tiling images, stored in image boxes, are 16x16 bitmaps so,
+ if you want to, they can easily be changed to your own design.
+
+ On exiting it seems necessary to avoid using End else get
+ an illegal operation error.  NB the Esc key can also be used
+ to exit.
+ 
+ All the original images can be extracted from the resource file
+ using the method in the INFLATE routine, then blitting to a
+ picture box and SavePicture, if wanted,
+ 
+ zlib.dll can either be in the application folder or in the
+ \System folder or full path given in zlib.dll Declaration.
+ It does not need registering.
+ 
+  zlib.dll (ver 1.1.4.0) available from:
+  www.winimage.com/zlibdll/
+  For good example of usage see vb-helper.com
+  also www.gzip.org/zlib/
